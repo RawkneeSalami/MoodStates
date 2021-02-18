@@ -1,7 +1,6 @@
 /***********************************************************************************
 	SimpleStateMachine - TEMPLATE
-	by Scott Kildall
-
+	by Ronnie Saini 2.0
 	Template:
 
 	(1) Add your own PNG files in the assets folder. Make sure they match the names ***exactly*** of the existing PNGs.
@@ -35,6 +34,7 @@
 
 // Array of images
 var images = [];
+var instructArray =[];
 
 // variable that is a function 
 var drawFunction;
@@ -50,6 +50,11 @@ function preload() {
   images[3] = loadImage('assets/four.png');
   images[4] = loadImage('assets/five.png');
   images[5] = loadImage('assets/splash.png');
+
+  instructArray[0] = "Please Press The numbers to continue";
+  instructArray[1] = "You can press 1 on the keyboard to go the first slide";
+  instructArray[2] = "At the end refresh to start again!";
+
 }
 
 // Center drawing, drawFunction will be one for default
@@ -119,7 +124,23 @@ drawFive = function() {
 drawSplash = function() {
    image(images[5],width/2, height/2);
 }
+//glitched mouse funcitonality, text instructions are overlaying eachother
 
+drawInstruct = function(){
+fill(0, 117, 45);
+for (let i = 0; i < 3; i++) {
+  text(instructArray[i], width/2, height - gTextOffset);
+}
+//Mouse press probably in wrong place.
+  function mousePressed() {
+    // only change state if we are in splash screen
+    if(i = 3 ) {
+      drawFunction = drawOne;
+    }
+  
+}
+
+}
 
 //========= TEMPLATE: add or change interface functions, as you like =========
 
@@ -145,6 +166,10 @@ function keyTyped() {
   	drawFunction = drawFive;
   }
 
+  else if( key === '6' ) {
+  	drawFunction = drawSix;
+  }
+
   else if( key === 's' ) {
     drawFunction = drawSplash;
   }
@@ -153,6 +178,6 @@ function keyTyped() {
 function mousePressed() {
   // only change state if we are in splash screen
   if( drawFunction === drawSplash ) {
-    drawFunction = drawOne;
+    drawFunction = drawInstruct;
   }
 }
